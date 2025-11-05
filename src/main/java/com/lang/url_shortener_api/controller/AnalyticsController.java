@@ -25,7 +25,7 @@ public class AnalyticsController {
      * Fetches click counts grouped by slug. If no params passed, will return all counts.
      *
      * @param startDate     If endDate is null, then get counts for one day.
-     * @param endDate       Get counts between startDate and endDate.
+     * @param endDate       Get counts between startDate 12:00:00 AM and endDate 11:59:59 PM.
      */
     @GetMapping("/clicks")
     public Set<RedirectCountResponse> getClickCount(@RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
