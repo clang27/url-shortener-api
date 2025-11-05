@@ -1,0 +1,7 @@
+spring:
+  sql:
+    init:
+      mode: always
+
+app:
+  url-prefix: "https://www.test.com/"

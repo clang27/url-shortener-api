@@ -1,3 +1,14 @@
 spring:
   application:
     name: url-shortener-api
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/test_db
+    username: test_user
+    password: test_pass
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+app:
+  url-prefix: "http://localhost:8080/"

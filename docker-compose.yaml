@@ -1,0 +1,17 @@
+services:
+  flyway:
+    image: flyway/flyway:11
+    command: -connectRetries=60 -configFiles=/flyway/migration/flyway.conf migrate
+    volumes:
+      - ${PWD}/database:/flyway/migration
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:17.6
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=test_user
+      - POSTGRES_PASSWORD=test_pass
+      - POSTGRES_DB=test_db
+    restart: always
