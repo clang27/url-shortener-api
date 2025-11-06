@@ -16,7 +16,7 @@ You will need the following installed to build and run this app locally.
 
 - Run `mvn clean install` to run the test suite and build the .jar
 - Run `docker compose up` to instantiate Postgres DB in a Docker container
-  - If you do not want mock data inserted into the `slugs` table, set `flyway.placeholders.runMockData` to false 
+  - If you do not want mock data inserted into the `slugs` table, set `flyway.placeholders.addMockData` to false 
   in `./database/flyway.conf`
 
 ### Web Server and API

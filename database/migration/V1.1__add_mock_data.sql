@@ -1,6 +1,6 @@
 DO $$
 BEGIN
-    IF '${runMockData}' = 'true' THEN
+    IF '${addMockData}' = 'true' THEN
         INSERT INTO url.slugs (slug, target)
         VALUES ('1fd33d239faf4cd4', 'https://www.google.com');
 
