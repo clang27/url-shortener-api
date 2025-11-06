@@ -1,13 +1,16 @@
 package com.lang.url_shortener_api.service;
 
 import com.lang.url_shortener_api.entity.SlugEntity;
+import com.lang.url_shortener_api.model.TotalRedirectCountByDayResponse;
 import com.lang.url_shortener_api.model.TotalRedirectCountResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -42,6 +45,19 @@ public class RedirectEventServiceTest extends DatabaseTest {
 
         var count = redirectEventService.getTotalRedirectCount();
         assertThat(count.contains(new TotalRedirectCountResponse(SLUG, TARGET, 2L))).isTrue();
+    }
+
+    @Test
+    public void gettingTotalRedirectsByDay_ShouldBeTwo_WhenThereAreTwo() {
+        var expectedDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+        var slugEntity = getSlugRepository().save(new SlugEntity().setTarget(TARGET).setSlug(SLUG));
+        when(urlService.getSlugByTarget(TARGET)).thenReturn(slugEntity);
+
+        redirectEventService.record(TARGET, USER_AGENT);
+        redirectEventService.record(TARGET, USER_AGENT);
+
+        var count = redirectEventService.getRedirectCountByDay();
+        assertThat(count.contains(new TotalRedirectCountByDayResponse(expectedDate, SLUG, TARGET, 2L))).isTrue();
     }
 
     @Test
