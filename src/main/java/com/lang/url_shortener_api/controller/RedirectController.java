@@ -5,10 +5,7 @@ import com.lang.url_shortener_api.service.RedirectEventService;
 import com.lang.url_shortener_api.service.UrlService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Optional;
@@ -16,6 +13,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping
 @AllArgsConstructor
+@CrossOrigin(origins = "${cross-origin.origins}")
 public class RedirectController {
 
     private final UrlService urlService;

@@ -3,5 +3,8 @@ spring:
     init:
       mode: always
 
+cross-origin:
+  origins: "http://localhost:5173/"
+
 app:
   url-prefix: "https://www.test.com/"

@@ -1,7 +1,8 @@
 package com.lang.url_shortener_api.repository;
 
 import com.lang.url_shortener_api.entity.RedirectEventsEntity;
-import com.lang.url_shortener_api.model.RedirectCountResponse;
+import com.lang.url_shortener_api.model.TotalRedirectCountByDayResponse;
+import com.lang.url_shortener_api.model.TotalRedirectCountResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,7 +17,15 @@ public interface RedirectEventsRepository extends JpaRepository<RedirectEventsEn
         RIGHT JOIN url.slugs T2 ON T1.slug_id = T2.id
         GROUP BY T2.slug, T2.target
     """, nativeQuery = true)
-    Set<RedirectCountResponse> getAllRedirectCounts();
+    Set<TotalRedirectCountResponse> getAllRedirectCounts();
+
+    @Query(value = """
+        SELECT TO_CHAR(T1.created, 'YYYY-MM-DD') as day, T2.slug, T2.target, COUNT(T1.id) as count
+        FROM url.redirect_events T1
+        RIGHT JOIN url.slugs T2 ON T1.slug_id = T2.id
+        GROUP BY day, T2.slug, T2.target
+    """, nativeQuery = true)
+    Set<TotalRedirectCountByDayResponse> getAllRedirectCountsByDay();
 
     @Query(value = """
         SELECT T2.slug, T2.target, COUNT(T1.id) as count
@@ -24,6 +33,6 @@ public interface RedirectEventsRepository extends JpaRepository<RedirectEventsEn
         RIGHT JOIN url.slugs T2 ON T1.slug_id = T2.id
         GROUP BY T2.slug, T2.target
     """, nativeQuery = true)
-    Set<RedirectCountResponse> getAllRedirectCountsForDateRange(@Param("startDate") ZonedDateTime startDate,
-                                                                @Param("endDate") ZonedDateTime endDate);
+    Set<TotalRedirectCountResponse> getAllRedirectCountsForDateRange(@Param("startDate") ZonedDateTime startDate,
+                                                                     @Param("endDate") ZonedDateTime endDate);
 }

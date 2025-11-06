@@ -3,8 +3,8 @@ GRANT ALL ON SCHEMA url TO test_user;
 
 CREATE TABLE url.slugs (
     id          SERIAL          PRIMARY KEY,
-    slug        VARCHAR(32)     UNIQUE NOT NULL,
-    target      VARCHAR(512)    UNIQUE NOT NULL,
+    slug        VARCHAR(16)     UNIQUE NOT NULL,
+    target      VARCHAR(1024)    UNIQUE NOT NULL,
     created     TIMESTAMP       DEFAULT CURRENT_TIMESTAMP
 );
 

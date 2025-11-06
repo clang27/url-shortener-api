@@ -31,7 +31,7 @@ public class UrlService {
                 optionalSlugEntity.get().getSlug() :
                 slugRepository
                         .save(new SlugEntity()
-                                .setSlug(createRandom32CharString())
+                                .setSlug(createRandom16CharString())
                                 .setTarget(targetUrl))
                         .getSlug();
 
@@ -58,8 +58,8 @@ public class UrlService {
         return optionalSlugEntity.get();
     }
 
-    private String createRandom32CharString() {
-        return UUID.randomUUID().toString().replace("-", "");
+    private String createRandom16CharString() {
+        return UUID.randomUUID().toString().replace("-", "").substring(0, 16);
     }
 
     private boolean validTargetUrl(String url) {

@@ -4,14 +4,12 @@ package com.lang.url_shortener_api.controller;
 import com.lang.url_shortener_api.model.ShortUrlRequest;
 import com.lang.url_shortener_api.service.UrlService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/urls")
 @AllArgsConstructor
+@CrossOrigin(origins = "${cross-origin.origins}")
 public class UrlsController {
 
     private final UrlService urlService;
