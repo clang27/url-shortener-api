@@ -1,4 +1,17 @@
 services:
+  spring:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: url-shortener-api
+    ports:
+      - "8080:8080"
+    environment:
+      - JAVA_OPTS=-Xms256m -Xmx512m
+    command: [ "java", "-jar", "app.jar" ]
+    depends_on:
+      - flyway
+
   flyway:
     image: flyway/flyway:11
     command: -connectRetries=60 -configFiles=/flyway/migration/flyway.conf migrate
@@ -6,6 +19,7 @@ services:
       - ${PWD}/database:/flyway/migration
     depends_on:
       - postgres
+
   postgres:
     image: postgres:17.6
     ports:

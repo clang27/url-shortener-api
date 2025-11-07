@@ -12,20 +12,16 @@
 
 You will need the following installed to build and run this app locally.
 
-- Java 17
-- Maven
 - [Docker](https://hub.docker.com/welcome)
 
 ### Local Setup
 
-- Run `mvn clean install` to run the test suite and build the .jar
-- Run `docker compose up` to instantiate Postgres DB in a Docker container
+- Run `docker compose up --build` to instantiate the Postgres DB and to build and run the Spring App on port 8080
   - If you do not want mock data inserted into the `slugs` table, set `flyway.placeholders.addMockData` to false 
   in `./database/flyway.conf`
 
 ### How to Use
 
-- Run `java -jar ./target/url-shortener-api-0.1.0-SNAPSHOT.jar` via command line or IDE
 - Use [url-shortener-ui](https://github.com/clang27/url-shortener-ui) to interact with API
 
 ## Notes
